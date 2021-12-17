@@ -56,7 +56,7 @@ public class ProjectConfig extends ResourceConfig {
         SumoAssembler sumoAssembler = new SumoAssembler();
         FoodSummaryAssembler foodSummaryAssembler = new FoodSummaryAssembler(foodAssembler);
 
-        ResourceService resourceService = new ResourceService(gameRepository, gameFactory);
+        ResourceService resourceService = new ResourceService(game);
         DinosaurService dinosaurService = new DinosaurService(dinosaurFactory, herd, game, dinosaurBabyFetcher);
         GameService gameService = new GameService(game, gameRepository);
 
