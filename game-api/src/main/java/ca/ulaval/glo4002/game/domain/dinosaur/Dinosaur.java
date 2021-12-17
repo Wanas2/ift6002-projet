@@ -49,7 +49,7 @@ public class Dinosaur {
     public boolean isAlive() {
         boolean isAlive = this.isAlive && foodConsumptionStrategy.areFoodNeedsSatisfied();
         if(dinosaurStage.equals(DinosaurStage.BABY)) {
-            return isAlive && this.fatherDinosaur.isAlive() && this.motherDinosaur.isAlive();
+            return isAlive && (fatherDinosaur.isAlive() || motherDinosaur.isAlive());
         }
         return isAlive;
     }
