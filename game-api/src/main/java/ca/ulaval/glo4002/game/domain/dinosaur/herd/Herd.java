@@ -100,10 +100,8 @@ public class Herd {
         sumoFightOrganizer.reset();
     }
 
-    // A utiliser dans game quand le service sera fait
-    public void modifyDinosaurWeight(String dinosaurName, int weightValue) {
-        Dinosaur dinosaur = getDinosaurWithName(dinosaurName);
-        dinosaur.modifyWeight(weightValue);
+    public void modifyWeight(int weightVariation) {
+
     }
 
     public void increasingBabiesWeight() {

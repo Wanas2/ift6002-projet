@@ -28,8 +28,6 @@ abstract public class Dinosaur {
         return isAlive && foodConsumptionStrategy.areFoodNeedsSatisfied();
     }
 
-    abstract public void modifyWeight(int weightValue);
-
     abstract public void validateWeightVariation(int weightVariation);
 
     public List<FoodNeed> askForFood() {
