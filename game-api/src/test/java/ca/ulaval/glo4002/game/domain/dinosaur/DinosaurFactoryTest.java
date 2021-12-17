@@ -89,11 +89,11 @@ public class DinosaurFactoryTest {
 
     private Dinosaur createAMaleDinosaur() {
         FoodConsumptionStrategy foodConsumptionStrategy = mock(FoodConsumptionStrategy.class);
-        return new AdultDinosaur(Species.Spinosaurus, 7, "Joe", Gender.M, foodConsumptionStrategy);
+        return new Dinosaur(Species.Spinosaurus, 7, "Joe", Gender.M, foodConsumptionStrategy, DinosaurStage.ADULT);
     }
 
     private Dinosaur createAFemaleDinosaur() {
         FoodConsumptionStrategy foodConsumptionStrategy = mock(FoodConsumptionStrategy.class);
-        return new AdultDinosaur(Species.Ankylosaurus, 7, "Berta", Gender.F, foodConsumptionStrategy);
+        return new Dinosaur(Species.Ankylosaurus, 7, "Berta", Gender.F, foodConsumptionStrategy, DinosaurStage.ADULT);
     }
 }

@@ -18,7 +18,7 @@ public class DinosaurFactory {
         this.herbivorousFoodStorage = herbivorousFoodStorage;
     }
 
-    public AdultDinosaur createAdultDinosaur(String genderName, int weight, String speciesName, String name) {
+    public Dinosaur createAdultDinosaur(String genderName, int weight, String speciesName, String name) {
         if(weight < 100) {
             throw new InvalidWeightException();
         }
@@ -27,17 +27,17 @@ public class DinosaurFactory {
         Species species = findCorrespondingSpecies(speciesName);
         FoodConsumptionStrategy foodConsumptionStrategy = findCorrespondingFoodConsumptionStrategy(species);
 
-        return new AdultDinosaur(species, weight, name, gender, foodConsumptionStrategy);
+        return new Dinosaur(species, weight, name, gender, foodConsumptionStrategy, DinosaurStage.ADULT);
     }
 
-    public BabyDinosaur createBaby(String genderName, String speciesName, String name, Dinosaur fatherDinosaur,
+    public Dinosaur createBaby(String genderName, String speciesName, String name, Dinosaur fatherDinosaur,
                                    Dinosaur motherDinosaur) {
         validateParentsGender(fatherDinosaur, motherDinosaur);
         Gender gender = findCorrespondingGender(genderName);
         Species species = findCorrespondingSpecies(speciesName);
         FoodConsumptionStrategy foodConsumptionStrategy = findCorrespondingFoodConsumptionStrategy(species);
 
-        return new BabyDinosaur(species, name, gender, foodConsumptionStrategy, fatherDinosaur, motherDinosaur);
+        return new Dinosaur(species, name, gender, foodConsumptionStrategy, fatherDinosaur, motherDinosaur, DinosaurStage.BABY);
     }
 
     private void validateParentsGender(Dinosaur fatherDinosaur, Dinosaur motherDinosaur) {

@@ -24,9 +24,9 @@ public class BabyFetcherFromExternalAPITest {
     private BabyFetcherFromExternalAPI aBabyFetcher;
     private DinosaurBreederExternal externalBreeder;
     private DinosaurFactory factory;
-    private AdultDinosaur aMaleDinosaur;
-    private AdultDinosaur aFemaleDinosaur;
-    private BabyDinosaur aBabyDinosaur;
+    private Dinosaur aMaleDinosaur;
+    private Dinosaur aFemaleDinosaur;
+    private Dinosaur aBabyDinosaur;
 
     @BeforeEach
     public void setup() {
@@ -39,12 +39,12 @@ public class BabyFetcherFromExternalAPITest {
         int weight = 17;
 
         aBabyFetcher = new BabyFetcherFromExternalAPI(externalBreeder, factory, validator);
-        aMaleDinosaur = new AdultDinosaur(Species.Spinosaurus, weight, maleName, Gender.M,
-                mock(FoodConsumptionStrategy.class));
-        aFemaleDinosaur = new AdultDinosaur(Species.Spinosaurus, weight, femaleName, Gender.F,
-                mock(FoodConsumptionStrategy.class));
-        aBabyDinosaur = new BabyDinosaur(Species.Spinosaurus, BABY_NAME, Gender.M,
-                mock(FoodConsumptionStrategy.class), aMaleDinosaur, aFemaleDinosaur);
+        aMaleDinosaur = new Dinosaur(Species.Spinosaurus, weight, maleName, Gender.M,
+                mock(FoodConsumptionStrategy.class), DinosaurStage.ADULT);
+        aFemaleDinosaur = new Dinosaur(Species.Spinosaurus, weight, femaleName, Gender.F,
+                mock(FoodConsumptionStrategy.class), DinosaurStage.ADULT);
+        aBabyDinosaur = new Dinosaur(Species.Spinosaurus, BABY_NAME, Gender.M,
+                mock(FoodConsumptionStrategy.class), aMaleDinosaur, aFemaleDinosaur, DinosaurStage.BABY);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class BabyFetcherFromExternalAPITest {
         when(factory.createBaby(responseDTO.gender, responseDTO.offspring, BABY_NAME,
                 aMaleDinosaur, aFemaleDinosaur)).thenReturn(aBabyDinosaur);
 
-        Optional<BabyDinosaur> babyDinosaur = aBabyFetcher.fetch(aMaleDinosaur, aFemaleDinosaur, BABY_NAME);
+        Optional<Dinosaur> babyDinosaur = aBabyFetcher.fetch(aMaleDinosaur, aFemaleDinosaur, BABY_NAME);
 
         assertTrue(babyDinosaur.isPresent());
     }
@@ -68,7 +68,7 @@ public class BabyFetcherFromExternalAPITest {
         when(externalBreeder.breed(any(WebTarget.class), any(BreedingRequestExternalDTO.class)))
                 .thenThrow(new SpeciesWillNotBreedException());
 
-        Optional<BabyDinosaur> babyDinosaur = aBabyFetcher.fetch(aMaleDinosaur, aFemaleDinosaur, BABY_NAME);
+        Optional<Dinosaur> babyDinosaur = aBabyFetcher.fetch(aMaleDinosaur, aFemaleDinosaur, BABY_NAME);
 
         assertTrue(babyDinosaur.isEmpty());
     }

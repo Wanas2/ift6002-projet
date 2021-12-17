@@ -1,7 +1,5 @@
 package ca.ulaval.glo4002.game.domain.dinosaur.herd;
 
-import ca.ulaval.glo4002.game.domain.dinosaur.AdultDinosaur;
-import ca.ulaval.glo4002.game.domain.dinosaur.BabyDinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.consumption.FoodNeed;
 import ca.ulaval.glo4002.game.domain.dinosaur.sumoFight.SumoFightOrganizer;
@@ -10,8 +8,6 @@ import java.util.*;
 
 public class Herd {
 
-    private final List<BabyDinosaur> babiesDinosaurs = new ArrayList<>();
-    private final List<AdultDinosaur> adultDinosaurs = new ArrayList<>();
     private final List<Dinosaur> dinosaurs;
     private final SumoFightOrganizer sumoFightOrganizer;
     private final List<DinosaurFeeder> dinosaurFeeders;
@@ -32,17 +28,9 @@ public class Herd {
         return false;
     }
 
-    public void addAdultDinosaur(AdultDinosaur adultDinosaur) {
-        if(!hasDinosaurWithName(adultDinosaur.getName())) {
-            dinosaurs.add(adultDinosaur);
-            adultDinosaurs.add(adultDinosaur);
-        }
-    }
-
-    public void addBabyDinosaur(BabyDinosaur babyDinosaur) {
-        if(!hasDinosaurWithName(babyDinosaur.getName())) {
-            dinosaurs.add(babyDinosaur);
-            babiesDinosaurs.add(babyDinosaur);
+    public void addDinosaur(Dinosaur dinosaur) {
+        if(!hasDinosaurWithName(dinosaur.getName())) {
+            dinosaurs.add(dinosaur);
         }
     }
 
@@ -53,14 +41,10 @@ public class Herd {
         dinosaurFeeders.forEach(dinosaurFeeder->dinosaurFeeder.feedDinosaurs(dinosaursWithNeed));
 
         removeFastingDinosaurs();
-        updateAdultDinosaursList();
-        updateBabyDinosaursList();
     }
 
     public void reset() {
         dinosaurs.clear();
-        babiesDinosaurs.clear();
-        adultDinosaurs.clear();
     }
 
     public Dinosaur getDinosaurWithName(String dinosaurName) {
@@ -100,52 +84,7 @@ public class Herd {
         sumoFightOrganizer.reset();
     }
 
-    public void modifyWeight(int weightVariation) {
-
-    }
-
     public void increasingBabiesWeight() {
-        updateBabyDinosaursList();
-        for(BabyDinosaur babyDinosaur: babiesDinosaurs) {
-            babyDinosaur.increaseWeight();
-        }
-
-        growBabyToAdultDinosaur();
-    }
-
-    private void updateAdultDinosaursList() {
-        List<AdultDinosaur> dinosaursToRemove = new ArrayList<>();
-        for(AdultDinosaur adultDinosaur: adultDinosaurs) {
-            if(!hasDinosaurWithName(adultDinosaur.getName())) {
-                dinosaursToRemove.add(adultDinosaur);
-            }
-        }
-        adultDinosaurs.removeAll(dinosaursToRemove);
-    }
-
-    private void updateBabyDinosaursList() {
-        List<BabyDinosaur> babiesToRemove = new ArrayList<>();
-        for(BabyDinosaur babyDinosaur: babiesDinosaurs) {
-            if(!hasDinosaurWithName(babyDinosaur.getName())) {
-                babiesToRemove.add(babyDinosaur);
-            }
-        }
-        babiesDinosaurs.removeAll(babiesToRemove);
-    }
-
-    private void growBabyToAdultDinosaur() {
-        List<AdultDinosaur> babyToAdultDinosaur = new ArrayList<>();
-        List<BabyDinosaur> babiesToRemove = new ArrayList<>();
-        for(BabyDinosaur babyDinosaur: babiesDinosaurs) {
-            Optional<AdultDinosaur> adultDinosaur = babyDinosaur.becomeAdult();
-            if(adultDinosaur.isPresent()) {
-                babyToAdultDinosaur.add(adultDinosaur.get());
-                babiesToRemove.add(babyDinosaur);
-            }
-        }
-
-        babiesDinosaurs.removeAll(babiesToRemove);
-        dinosaurs.removeAll(babiesToRemove);
-        dinosaurs.addAll(babyToAdultDinosaur);
+        dinosaurs.forEach(Dinosaur::increaseWeight);
     }
 }

@@ -1,6 +1,5 @@
 package ca.ulaval.glo4002.game.infrastructure.dinosaur.dinosaurBreederExternal;
 
-import ca.ulaval.glo4002.game.domain.dinosaur.BabyDinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.BabyFetcher;
 import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.DinosaurFactory;
@@ -27,7 +26,7 @@ public class BabyFetcherFromExternalAPI implements BabyFetcher {
     }
 
     @Override
-    public Optional<BabyDinosaur> fetch(Dinosaur fatherDinosaur, Dinosaur motherDinosaur, String name) {
+    public Optional<Dinosaur> fetch(Dinosaur fatherDinosaur, Dinosaur motherDinosaur, String name) {
         parentsGenderValidator.validateParentGender(fatherDinosaur, motherDinosaur);
 
         BreedingAssembler breedingAssembler = new BreedingAssembler();
@@ -45,7 +44,7 @@ public class BabyFetcherFromExternalAPI implements BabyFetcher {
         String genderName = babyDinosaurResponseDTO.gender;
         String speciesName = babyDinosaurResponseDTO.offspring;
 
-        BabyDinosaur babyDinosaur
+        Dinosaur babyDinosaur
                 = dinosaurFactory.createBaby(genderName, speciesName, name, fatherDinosaur, motherDinosaur);
         return Optional.of(babyDinosaur);
     }

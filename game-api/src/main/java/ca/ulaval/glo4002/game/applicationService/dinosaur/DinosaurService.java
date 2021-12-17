@@ -26,7 +26,7 @@ public class DinosaurService {
         if(herd.hasDinosaurWithName(name)) {
             throw new DuplicateNameException();
         }
-        AdultDinosaur adultDinosaur = dinosaurFactory.createAdultDinosaur(gender, weight, species, name);
+        Dinosaur adultDinosaur = dinosaurFactory.createAdultDinosaur(gender, weight, species, name);
         game.addAdultDinosaur(adultDinosaur);
     }
 
@@ -36,7 +36,7 @@ public class DinosaurService {
         Dinosaur fatherDinosaur = herd.getDinosaurWithName(fatherName);
         Dinosaur motherDinosaur = herd.getDinosaurWithName(motherName);
 
-        Optional<BabyDinosaur> babyDinosaur = babyFetcher.fetch(fatherDinosaur, motherDinosaur, babyDinosaurName);
+        Optional<Dinosaur> babyDinosaur = babyFetcher.fetch(fatherDinosaur, motherDinosaur, babyDinosaurName);
         babyDinosaur.ifPresent(game::addBabyDinosaur);
     }
 

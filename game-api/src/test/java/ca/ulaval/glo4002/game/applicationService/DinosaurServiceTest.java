@@ -31,9 +31,9 @@ class DinosaurServiceTest {
     private final static String A_FATHER_NAME = "father";
     private final static String A_MOTHER_NAME = "mother";
 
-    private AdultDinosaur adultDinosaur;
-    private AdultDinosaur anotherAdultDinosaur;
-    private BabyDinosaur aBabyDinosaur;
+    private Dinosaur adultDinosaur;
+    private Dinosaur anotherAdultDinosaur;
+    private Dinosaur aBabyDinosaur;
     private DinosaurFactory dinosaurFactory;
     private Game game;
     private Herd herd;
@@ -43,12 +43,12 @@ class DinosaurServiceTest {
     @BeforeEach
     void setUp() {
         FoodConsumptionStrategy aFoodConsumptionStrategy = mock(FoodConsumptionStrategy.class);
-        adultDinosaur = new AdultDinosaur(A_SPECIES, A_WEIGHT, A_NAME, THE_MALE_GENDER, aFoodConsumptionStrategy);
+        adultDinosaur = new Dinosaur(A_SPECIES, A_WEIGHT, A_NAME, THE_MALE_GENDER, aFoodConsumptionStrategy, DinosaurStage.ADULT);
         anotherAdultDinosaur =
-                new AdultDinosaur(A_SPECIES, A_WEIGHT, ANOTHER_NAME, THE_FEMALE_GENDER, aFoodConsumptionStrategy);
+                new Dinosaur(A_SPECIES, A_WEIGHT, ANOTHER_NAME, THE_FEMALE_GENDER, aFoodConsumptionStrategy, DinosaurStage.ADULT);
         aBabyDinosaur =
-                new BabyDinosaur(A_SPECIES, A_NAME, THE_MALE_GENDER, aFoodConsumptionStrategy, adultDinosaur,
-                        anotherAdultDinosaur);
+                new Dinosaur(A_SPECIES, A_NAME, THE_MALE_GENDER, aFoodConsumptionStrategy, adultDinosaur,
+                        anotherAdultDinosaur, DinosaurStage.BABY);
         dinosaurFactory = mock(DinosaurFactory.class);
         game = mock(Game.class);
         babyFetcher = mock(BabyFetcher.class);

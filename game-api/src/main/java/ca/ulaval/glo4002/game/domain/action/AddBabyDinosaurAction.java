@@ -1,20 +1,20 @@
 package ca.ulaval.glo4002.game.domain.action;
 
-import ca.ulaval.glo4002.game.domain.dinosaur.BabyDinosaur;
+import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.herd.Herd;
 
 public class AddBabyDinosaurAction implements ExecutableAction {
 
     private final Herd herd;
-    private final BabyDinosaur babyDinosaur;
+    private final Dinosaur babyDinosaur;
 
-    public AddBabyDinosaurAction(Herd herd, BabyDinosaur babyDinosaur) {
+    public AddBabyDinosaurAction(Herd herd, Dinosaur babyDinosaur) {
         this.herd = herd;
         this.babyDinosaur = babyDinosaur;
     }
 
     @Override
     public void execute() {
-        herd.addBabyDinosaur(babyDinosaur);
+        herd.addDinosaur(babyDinosaur);
     }
 }

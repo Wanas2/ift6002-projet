@@ -19,8 +19,8 @@ class DinosaurTest {
     private final static int WEAKER_THAN = -1;
 
     private FoodNeed foodNeed;
-    private DinosaurImpl aDinosaurImpl;
-    private DinosaurImpl aStrongerDinosaurImpl;
+    private Dinosaur aDinosaur;
+    private Dinosaur aStrongerDinosaur;
     private FoodConsumptionStrategy aFoodConsumptionStrategy;
 
     @BeforeEach
@@ -29,17 +29,17 @@ class DinosaurTest {
         aFoodConsumptionStrategy = mock(FoodConsumptionStrategy.class);
         String aDinosaurName = "Bobi";
         String anotherDinosaurName = "Bob";
-        aDinosaurImpl = new DinosaurImpl(Species.Ankylosaurus, DINOSAUR_WEIGHT, aDinosaurName, Gender.F,
-                aFoodConsumptionStrategy);
-        aStrongerDinosaurImpl = new DinosaurImpl(Species.Ankylosaurus, STRONGER_DINOSAUR_WEIGHT, anotherDinosaurName,
-                Gender.F, aFoodConsumptionStrategy);
+        aDinosaur = new Dinosaur(Species.Ankylosaurus, DINOSAUR_WEIGHT, aDinosaurName, Gender.F,
+                aFoodConsumptionStrategy, DinosaurStage.ADULT);
+        aStrongerDinosaur = new Dinosaur(Species.Ankylosaurus, STRONGER_DINOSAUR_WEIGHT, anotherDinosaurName,
+                Gender.F, aFoodConsumptionStrategy, DinosaurStage.ADULT);
     }
 
     @Test
     public void givenADinosaurWithFoodNeedsNotSatisfied_whenIsAlive_thenDinosaurShouldNotBeALive() {
         when(aFoodConsumptionStrategy.areFoodNeedsSatisfied()).thenReturn(false);
 
-        boolean isAlive = aDinosaurImpl.isAlive();
+        boolean isAlive = aDinosaur.isAlive();
 
         assertFalse(isAlive);
     }
@@ -48,38 +48,38 @@ class DinosaurTest {
     public void givenADinosaurWithFoodNeedsSatisfied_whenIsAlive_thenDinosaurShouldBeAlive() {
         when(aFoodConsumptionStrategy.areFoodNeedsSatisfied()).thenReturn(true);
 
-        boolean isAlive = aDinosaurImpl.isAlive();
+        boolean isAlive = aDinosaur.isAlive();
 
         assertTrue(isAlive);
     }
 
     @Test
     public void whenLoseFight_thenDinosaurShouldNotBeAlive() {
-        aDinosaurImpl.loseFight();
+        aDinosaur.loseFight();
 
-        assertFalse(aDinosaurImpl.isAlive());
+        assertFalse(aDinosaur.isAlive());
     }
 
     @Test
     public void whenWinFight_thenDinosaurShouldBeStarving() {
-        aDinosaurImpl.winFight();
+        aDinosaur.winFight();
 
-        aDinosaurImpl.askForFood();
+        aDinosaur.askForFood();
         verify(aFoodConsumptionStrategy).getStarvingFoodNeeds(anyInt());
     }
 
     @Test
     public void givenDinosaurIsStarving_whenAskForFood_thenDinosaurShouldGetStarvingFoodNeed() {
-        aDinosaurImpl.askForFood();
+        aDinosaur.askForFood();
 
         verify(aFoodConsumptionStrategy).getStarvingFoodNeeds(DINOSAUR_WEIGHT);
     }
 
     @Test
     public void givenDinosaurIsNotStarving_whenAskForFood_thenDinosaurShouldGetNormalFoodNeed() {
-        aDinosaurImpl.askForFood();
+        aDinosaur.askForFood();
 
-        aDinosaurImpl.askForFood();
+        aDinosaur.askForFood();
 
         verify(aFoodConsumptionStrategy).getNonStarvingFoodNeeds(DINOSAUR_WEIGHT);
     }
@@ -89,27 +89,15 @@ class DinosaurTest {
         List<FoodNeed> foodNeeds = new ArrayList<>(Collections.singleton(foodNeed));
         when(aFoodConsumptionStrategy.getStarvingFoodNeeds(DINOSAUR_WEIGHT)).thenReturn(foodNeeds);
 
-        List<FoodNeed> foodNeedsReturned = aDinosaurImpl.askForFood();
+        List<FoodNeed> foodNeedsReturned = aDinosaur.askForFood();
 
         assertEquals(foodNeeds, foodNeedsReturned);
     }
 
     @Test
     public void givenAStrongerDinosaur_whenCompareStrength_thenDinosaurShouldBeWeakerThanTheStronger() {
-        int strengthComparison = aDinosaurImpl.compareStrength(aStrongerDinosaurImpl);
+        int strengthComparison = aDinosaur.compareStrength(aStrongerDinosaur);
 
         assertEquals(WEAKER_THAN, strengthComparison);
-    }
-
-    class DinosaurImpl extends Dinosaur {
-
-        public DinosaurImpl(Species species, int weight, String name, Gender gender,
-                            FoodConsumptionStrategy foodConsumptionStrategy) {
-            super(species, weight, name, gender, foodConsumptionStrategy);
-        }
-
-        @Override
-        public void validateWeightVariation(int weightVariation) {
-        }
     }
 }
