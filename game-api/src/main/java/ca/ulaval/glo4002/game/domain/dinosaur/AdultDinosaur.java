@@ -12,7 +12,6 @@ public class AdultDinosaur extends Dinosaur {
         super(species, weight, name, gender, foodConsumptionStrategy);
     }
 
-    @Override
     public void modifyWeight(int weightVariation) {
         this.weight = this.weight+weightVariation;
     }

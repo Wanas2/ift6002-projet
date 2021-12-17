@@ -27,10 +27,6 @@ public class BabyDinosaur extends Dinosaur {
         return super.isAlive() && (fatherDinosaur.isAlive() || motherDinosaur.isAlive());
     }
 
-    @Override
-    public void modifyWeight(int weightValue) {
-    }
-
     public void increaseWeight() {
         if(this.weight < WEIGHT_TO_BECOME_ADULT) {
             this.weight += WEIGHT_INCREASE_PER_TURN;
