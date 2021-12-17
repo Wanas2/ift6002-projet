@@ -37,7 +37,8 @@ public class DinosaurFactory {
         Species species = findCorrespondingSpecies(speciesName);
         FoodConsumptionStrategy foodConsumptionStrategy = findCorrespondingFoodConsumptionStrategy(species);
 
-        return new Dinosaur(species, name, gender, foodConsumptionStrategy, fatherDinosaur, motherDinosaur, DinosaurStage.BABY);
+        return new Dinosaur(species, name, gender, foodConsumptionStrategy,
+                fatherDinosaur, motherDinosaur, DinosaurStage.BABY);
     }
 
     private void validateParentsGender(Dinosaur fatherDinosaur, Dinosaur motherDinosaur) {

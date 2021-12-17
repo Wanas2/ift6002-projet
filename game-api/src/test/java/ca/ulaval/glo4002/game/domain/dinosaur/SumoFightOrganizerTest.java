@@ -21,6 +21,7 @@ public class SumoFightOrganizerTest {
     private final static String DINOSAUR_NAME = "Bob";
     private final static String RESULT_DRAW = "tie";
     private final static int POSITIVE_DIFFERENCE = 1;
+    private final static int NEGATIVE_DIFFERENCE = -1;
     private final static int NULL_DIFFERENCE = 0;
 
     private Dinosaur aStrongerDinosaur;
@@ -68,11 +69,21 @@ public class SumoFightOrganizerTest {
     }
 
     @Test
-    public void givenTwoDinosaursWithDifferentStrength_whenScheduleSumoFight_thenShouldReturnTheNameOfStrongestDinosaur() {
+    public void givenTwoDinosaursWithFirstDinosaurMoreStrongerThanTheSecond_whenScheduleSumoFight_thenShouldReturnTheNameOfStrongestDinosaur() {
         when(aStrongerDinosaur.compareStrength(aDinosaur)).thenReturn(POSITIVE_DIFFERENCE);
         when(aStrongerDinosaur.getName()).thenReturn(DINOSAUR_NAME);
 
         String result = sumoFightOrganizer.scheduleSumoFight(aStrongerDinosaur, aDinosaur);
+
+        assertEquals(DINOSAUR_NAME, result);
+    }
+
+    @Test
+    public void givenTwoDinosaursWithSecondDinosaurMoreStrongerThanTheFirst_whenScheduleSumoFight_thenShouldReturnTheNameOfStrongestDinosaur() {
+        when(aDinosaur.compareStrength(aStrongerDinosaur)).thenReturn(NEGATIVE_DIFFERENCE);
+        when(aStrongerDinosaur.getName()).thenReturn(DINOSAUR_NAME);
+
+        String result = sumoFightOrganizer.scheduleSumoFight(aDinosaur, aStrongerDinosaur);
 
         assertEquals(DINOSAUR_NAME, result);
     }
