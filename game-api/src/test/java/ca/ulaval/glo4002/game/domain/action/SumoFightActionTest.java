@@ -27,6 +27,6 @@ public class SumoFightActionTest {
     public void whenExecute_thenHerdShouldOrganizeSumoFight() {
         sumoFightAction.execute();
 
-        verify(herd).organizeSumoFight(aDinosaur, anotherDinosaur);
+        verify(herd).sumoFight(aDinosaur, anotherDinosaur);
     }
 }

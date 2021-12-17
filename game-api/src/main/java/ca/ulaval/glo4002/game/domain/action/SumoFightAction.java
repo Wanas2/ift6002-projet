@@ -17,6 +17,6 @@ public class SumoFightAction implements ExecutableAction {
 
     @Override
     public void execute() {
-        herd.organizeSumoFight(dinosaurChallenger, dinosaurChallengee);
+        herd.sumoFight(dinosaurChallenger, dinosaurChallengee);
     }
 }

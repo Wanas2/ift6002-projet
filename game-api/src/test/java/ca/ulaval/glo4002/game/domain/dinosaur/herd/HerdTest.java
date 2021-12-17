@@ -136,7 +136,7 @@ public class HerdTest {
 
     @Test
     public void givenTwoDinosaursInHerd_whenOrganizeSumoFight_thenSumoFightShouldBeCalled() {
-        herd.organizeSumoFight(aDinosaurInHerd, anotherDinosaurInHerd);
+        herd.sumoFight(aDinosaurInHerd, anotherDinosaurInHerd);
 
         verify(sumoFightOrganizer).sumoFight(aDinosaurInHerd, anotherDinosaurInHerd);
     }
@@ -146,7 +146,7 @@ public class HerdTest {
         when(sumoFightOrganizer.sumoFight(aDinosaur, anotherDinosaur))
                 .thenReturn(List.of(aDinosaur));
 
-        herd.organizeSumoFight(aDinosaur, anotherDinosaur);
+        herd.sumoFight(aDinosaur, anotherDinosaur);
 
         verify(aDinosaur).winFight();
     }
@@ -156,7 +156,7 @@ public class HerdTest {
         when(sumoFightOrganizer.sumoFight(aDinosaur, anotherDinosaur))
                 .thenReturn(List.of(aDinosaur));
 
-        herd.organizeSumoFight(aDinosaur, anotherDinosaur);
+        herd.sumoFight(aDinosaur, anotherDinosaur);
 
         verify(anotherDinosaur).loseFight();
     }

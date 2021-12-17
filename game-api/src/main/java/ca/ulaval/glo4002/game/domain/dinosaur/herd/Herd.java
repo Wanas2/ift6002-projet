@@ -80,7 +80,7 @@ public class Herd {
         dinosaurs.removeIf((dinosaur)->!dinosaur.isAlive());
     }
 
-    public void organizeSumoFight(Dinosaur dinosaurChallenger, Dinosaur dinosaurChallengee) {
+    public void sumoFight(Dinosaur dinosaurChallenger, Dinosaur dinosaurChallengee) {
         List<Dinosaur> dinosaursWinners = sumoFightOrganizer.sumoFight(dinosaurChallenger,
                 dinosaurChallengee);
 

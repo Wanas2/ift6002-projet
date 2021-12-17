@@ -4,7 +4,6 @@ import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class SumoFightOrganizer {
@@ -21,35 +20,37 @@ public class SumoFightOrganizer {
     }
 
     public List<Dinosaur> sumoFight(Dinosaur dinosaurChallenger, Dinosaur dinosaurChallengee) {
-        int strengthDifference = dinosaurChallenger.compareStrength(dinosaurChallengee);
-        if(strengthDifference > 0) {
-            return new ArrayList<>(Collections.singleton(dinosaurChallenger));
-        } else if(strengthDifference < 0) {
-            return new ArrayList<>(Collections.singleton(dinosaurChallengee));
-        }
-
-        return new ArrayList<>(Arrays.asList(dinosaurChallenger, dinosaurChallengee));
+        return planFight(dinosaurChallenger, dinosaurChallengee);
     }
 
-    public String scheduleSumoFight(Dinosaur dinosaurChallenger, Dinosaur dinosaurChallengeee) {
+    public String scheduleSumoFight(Dinosaur dinosaurChallenger, Dinosaur dinosaurChallengee) {
         sumoFightOrganizerValidator.validateSumoFight(numberOfFightDone, MAX_NUMBER_OF_FIGHTS_PER_TURN);
         sumoFightOrganizerValidator.validateSumoFighters(dinosaursAlreadyFought,
-                dinosaurChallenger, dinosaurChallengeee);
+                dinosaurChallenger, dinosaurChallengee);
 
         numberOfFightDone++;
-        dinosaursAlreadyFought.addAll(Arrays.asList(dinosaurChallenger, dinosaurChallengeee));
-        int strengthDifference = dinosaurChallenger.compareStrength(dinosaurChallengeee);
-        if(strengthDifference > 0) {
-            return dinosaurChallenger.getName();
-        } else if(strengthDifference < 0) {
-            return dinosaurChallengeee.getName();
-        }
+        dinosaursAlreadyFought.addAll(Arrays.asList(dinosaurChallenger, dinosaurChallengee));
 
-        return TIE_FIGHT;
+        List<Dinosaur> plannedResult = planFight(dinosaurChallenger, dinosaurChallengee);
+        return plannedResult.size() > 1 ? TIE_FIGHT : plannedResult.get(0).getName();
     }
 
     public void reset() {
         numberOfFightDone = 0;
         dinosaursAlreadyFought.clear();
+    }
+
+    private List<Dinosaur> planFight(Dinosaur dinosaurChallenger, Dinosaur dinosaurChallengee) {
+        int strengthDifference = dinosaurChallenger.compareStrength(dinosaurChallengee);
+
+        if(strengthDifference > 0) {
+            return List.of(dinosaurChallenger);
+        }
+
+        if(strengthDifference < 0) {
+            return List.of(dinosaurChallengee);
+        }
+
+        return Arrays.asList(dinosaurChallenger, dinosaurChallengee);
     }
 }
