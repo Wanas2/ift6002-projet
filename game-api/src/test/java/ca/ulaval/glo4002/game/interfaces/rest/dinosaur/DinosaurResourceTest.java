@@ -1,10 +1,7 @@
 package ca.ulaval.glo4002.game.interfaces.rest.dinosaur;
 
 import ca.ulaval.glo4002.game.applicationService.dinosaur.DinosaurService;
-import ca.ulaval.glo4002.game.domain.dinosaur.AdultDinosaur;
-import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
-import ca.ulaval.glo4002.game.domain.dinosaur.Gender;
-import ca.ulaval.glo4002.game.domain.dinosaur.Species;
+import ca.ulaval.glo4002.game.domain.dinosaur.*;
 import ca.ulaval.glo4002.game.domain.dinosaur.consumption.FoodConsumptionStrategy;
 import ca.ulaval.glo4002.game.interfaces.rest.dinosaur.assembler.DinosaurAssembler;
 import ca.ulaval.glo4002.game.interfaces.rest.dinosaur.assembler.SumoAssembler;
@@ -51,9 +48,9 @@ public class DinosaurResourceTest {
         aSumoRequestDTO = new SumoRequestDTO(A_DINOSAUR_NAME, ANOTHER_DINOSAUR_NAME);
         aGrowDTO = new GrowDTO(A_WEIGHT);
         consumptionStrategy = mock(FoodConsumptionStrategy.class);
-        aDinosaur = new AdultDinosaur(Species.Ankylosaurus, A_WEIGHT, A_DINOSAUR_NAME, Gender.F, consumptionStrategy);
+        aDinosaur = new Dinosaur(Species.Ankylosaurus, A_WEIGHT, A_DINOSAUR_NAME, Gender.F, consumptionStrategy, DinosaurStage.ADULT);
         anotherDinosaur =
-                new AdultDinosaur(Species.Ankylosaurus, A_WEIGHT, ANOTHER_DINOSAUR_NAME, Gender.F, consumptionStrategy);
+                new Dinosaur(Species.Ankylosaurus, A_WEIGHT, ANOTHER_DINOSAUR_NAME, Gender.F, consumptionStrategy, DinosaurStage.ADULT);
         aSumoRequestDTO = new SumoRequestDTO(A_DINOSAUR_NAME, ANOTHER_DINOSAUR_NAME);
         dinosaurs = new ArrayList<>();
         dinosaurService = mock(DinosaurService.class);

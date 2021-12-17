@@ -35,13 +35,12 @@ public class SumoFightOrganizerValidatorTest {
         int dinosaurWeight = 476;
         int anotherWeight = 276;
         int tyrannosaurusWeight = 152;
-        aDinosaur = new AdultDinosaur(Species.Allosaurus, dinosaurWeight, dinosaurName, Gender.M,
-                foodConsumptionStrategy);
-        anotherDinosaur = new AdultDinosaur(Species.Allosaurus, anotherWeight, anotherDinosaurName, Gender.M,
-                foodConsumptionStrategy);
-        aTyrannosaurusRex = new AdultDinosaur(Species.TyrannosaurusRex, tyrannosaurusWeight, tyrannosaurusName,
-                Gender.F,
-                foodConsumptionStrategy);
+        aDinosaur = new Dinosaur(Species.Allosaurus, dinosaurWeight, dinosaurName, Gender.M,
+                foodConsumptionStrategy, DinosaurStage.ADULT);
+        anotherDinosaur = new Dinosaur(Species.Allosaurus, anotherWeight, anotherDinosaurName, Gender.M,
+                foodConsumptionStrategy, DinosaurStage.ADULT);
+        aTyrannosaurusRex = new Dinosaur(Species.TyrannosaurusRex, tyrannosaurusWeight, tyrannosaurusName,
+                Gender.F, foodConsumptionStrategy, DinosaurStage.ADULT);
 
         sumoFightOrganizerValidator = new SumoFightOrganizerValidator();
     }

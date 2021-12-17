@@ -1,6 +1,6 @@
 package ca.ulaval.glo4002.game.domain.action;
 
-import ca.ulaval.glo4002.game.domain.dinosaur.AdultDinosaur;
+import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.herd.Herd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,13 +10,13 @@ import static org.mockito.Mockito.verify;
 
 public class AddAdultDinosaurActionTest {
 
-    private AdultDinosaur dinosaur;
+    private Dinosaur dinosaur;
     private Herd herd;
     private AddAdultDinosaurAction addAdultDinosaurAction;
 
     @BeforeEach
     public void setUp() {
-        dinosaur = mock(AdultDinosaur.class);
+        dinosaur = mock(Dinosaur.class);
         herd = mock(Herd.class);
         addAdultDinosaurAction = new AddAdultDinosaurAction(herd, dinosaur);
     }
@@ -25,6 +25,6 @@ public class AddAdultDinosaurActionTest {
     public void givenADinosaur_WhenExecute_thenDinosaurIsAddedToHerd() {
         addAdultDinosaurAction.execute();
 
-        verify(herd).addAdultDinosaur(dinosaur);
+        verify(herd).addDinosaur(dinosaur);
     }
 }

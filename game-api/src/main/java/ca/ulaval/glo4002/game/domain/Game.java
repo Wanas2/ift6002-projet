@@ -1,8 +1,6 @@
 package ca.ulaval.glo4002.game.domain;
 
 import ca.ulaval.glo4002.game.domain.action.*;
-import ca.ulaval.glo4002.game.domain.dinosaur.AdultDinosaur;
-import ca.ulaval.glo4002.game.domain.dinosaur.BabyDinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.herd.Herd;
 import ca.ulaval.glo4002.game.domain.food.Food;
@@ -22,12 +20,12 @@ public class Game {
         this.turn = turn;
     }
 
-    public void addAdultDinosaur(AdultDinosaur adultDinosaur) {
+    public void addAdultDinosaur(Dinosaur adultDinosaur) {
         ExecutableAction addAdultDinosaurAction = new AddAdultDinosaurAction(herd, adultDinosaur);
         turn.acquireNewAction(addAdultDinosaurAction);
     }
 
-    public void addBabyDinosaur(BabyDinosaur babyDinosaur) {
+    public void addBabyDinosaur(Dinosaur babyDinosaur) {
         ExecutableAction addBabyDinosaurAction = new AddBabyDinosaurAction(herd, babyDinosaur);
         turn.acquireNewAction(addBabyDinosaurAction);
     }

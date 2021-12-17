@@ -1,6 +1,5 @@
 package ca.ulaval.glo4002.game.domain.action;
 
-import ca.ulaval.glo4002.game.domain.dinosaur.AdultDinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,12 +12,12 @@ public class ModifyWeightActionTest {
     private static final int WEIGHT_VARIATION = 110;
 
     private ModifyWeightAction modifyWeightAction;
-    private AdultDinosaur dinosaur;
+    private Dinosaur dinosaur;
 
 
     @BeforeEach
     public void setUp() {
-        dinosaur = mock(AdultDinosaur.class);
+        dinosaur = mock(Dinosaur.class);
         modifyWeightAction = new ModifyWeightAction(WEIGHT_VARIATION,dinosaur);
     }
 

@@ -1,8 +1,6 @@
 package ca.ulaval.glo4002.game.domain;
 
 import ca.ulaval.glo4002.game.domain.action.*;
-import ca.ulaval.glo4002.game.domain.dinosaur.AdultDinosaur;
-import ca.ulaval.glo4002.game.domain.dinosaur.BabyDinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.Dinosaur;
 import ca.ulaval.glo4002.game.domain.dinosaur.herd.Herd;
 import ca.ulaval.glo4002.game.domain.food.Food;
@@ -23,8 +21,8 @@ class GameTest {
     private Herd herd;
     private Dinosaur aDinosaur;
     private Dinosaur anotherDinosaur;
-    private AdultDinosaur adultDinosaur;
-    private BabyDinosaur babyDinosaur;
+    private Dinosaur adultDinosaur;
+    private Dinosaur babyDinosaur;
     private Game game;
     private Pantry pantry;
 
@@ -32,10 +30,10 @@ class GameTest {
     void setUp() {
         turn = mock(Turn.class);
         herd = mock(Herd.class);
-        aDinosaur = mock(AdultDinosaur.class);
+        aDinosaur = mock(Dinosaur.class);
         anotherDinosaur = mock(Dinosaur.class);
-        adultDinosaur = mock(AdultDinosaur.class);
-        babyDinosaur = mock(BabyDinosaur.class);
+        adultDinosaur = mock(Dinosaur.class);
+        babyDinosaur = mock(Dinosaur.class);
         pantry = mock(Pantry.class);
         game = new Game(herd, pantry, turn);
     }
