@@ -10,18 +10,19 @@ import java.util.Optional;
 public class DinosaurService {
 
     private final DinosaurFactory dinosaurFactory;
-    private final Herd herd;
     private final Game game;
     private final BabyFetcher babyFetcher;
 
-    public DinosaurService(DinosaurFactory dinosaurFactory, Herd herd, Game game, BabyFetcher babyFetcher) {
+    private Herd herd;
+
+    public DinosaurService(DinosaurFactory dinosaurFactory, Game game, BabyFetcher babyFetcher) {
         this.dinosaurFactory = dinosaurFactory;
-        this.herd = herd;
         this.game = game;
         this.babyFetcher = babyFetcher;
     }
 
     public void addAdultDinosaur(String name, int weight, String gender, String species) {
+        this.herd = game.getHerd();
         if(herd.hasDinosaurWithName(name)) {
             throw new DuplicateNameException();
         }
@@ -30,6 +31,8 @@ public class DinosaurService {
     }
 
     public void breedDinosaur(String babyDinosaurName, String fatherName, String motherName) {
+        this.herd = game.getHerd();
+
         Dinosaur fatherDinosaur = herd.getDinosaurWithName(fatherName);
         Dinosaur motherDinosaur = herd.getDinosaurWithName(motherName);
 
@@ -38,6 +41,8 @@ public class DinosaurService {
     }
 
     public String prepareSumoFight(String dinosaurChallengerName, String dinosaurChallengeeName) {
+        this.herd = game.getHerd();
+
         Dinosaur dinosaurChallenger = herd.getDinosaurWithName(dinosaurChallengerName);
         Dinosaur dinosaurChallengee = herd.getDinosaurWithName(dinosaurChallengeeName);
 
@@ -47,16 +52,20 @@ public class DinosaurService {
     }
 
     public void updateDinosaurWeight(String dinosaurName, int weight) {
+        this.herd = game.getHerd();
+
         Dinosaur dinosaur = herd.getDinosaurWithName(dinosaurName);
         dinosaur.validateWeightVariation(weight);
         game.modifyDinosaurWeight(weight, dinosaur);
     }
 
     public Dinosaur showDinosaur(String dinosaurName) {
+        this.herd = game.getHerd();
         return herd.getDinosaurWithName(dinosaurName);
     }
 
     public List<Dinosaur> showAllDinosaurs() {
+        this.herd = game.getHerd();
         return herd.getAllDinosaurs();
     }
 }

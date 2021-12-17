@@ -35,8 +35,8 @@ class DinosaurServiceTest {
     private AdultDinosaur anotherAdultDinosaur;
     private BabyDinosaur aBabyDinosaur;
     private DinosaurFactory dinosaurFactory;
-    private Herd herd;
     private Game game;
+    private Herd herd;
     private BabyFetcher babyFetcher;
     private DinosaurService dinosaurService;
 
@@ -50,10 +50,12 @@ class DinosaurServiceTest {
                 new BabyDinosaur(A_SPECIES, A_NAME, THE_MALE_GENDER, aFoodConsumptionStrategy, adultDinosaur,
                         anotherAdultDinosaur);
         dinosaurFactory = mock(DinosaurFactory.class);
-        herd = mock(Herd.class);
         game = mock(Game.class);
         babyFetcher = mock(BabyFetcher.class);
-        dinosaurService = new DinosaurService(dinosaurFactory, herd, game, babyFetcher);
+        dinosaurService = new DinosaurService(dinosaurFactory, game, babyFetcher);
+
+        herd = mock(Herd.class);
+        when(game.getHerd()).thenReturn(herd);
     }
 
     @Test
