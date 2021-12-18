@@ -2,6 +2,8 @@ package ca.ulaval.glo4002.game.domain.dinosaur;
 
 import ca.ulaval.glo4002.game.domain.dinosaur.consumption.FoodConsumptionStrategy;
 import ca.ulaval.glo4002.game.domain.dinosaur.consumption.FoodNeed;
+import ca.ulaval.glo4002.game.domain.dinosaur.exceptions.InvalidBabyWeightChangeException;
+import ca.ulaval.glo4002.game.domain.dinosaur.exceptions.InvalidWeightChangeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -99,5 +101,88 @@ class DinosaurTest {
         int strengthComparison = aDinosaur.compareStrength(aStrongerDinosaur);
 
         assertEquals(WEAKER_THAN, strengthComparison);
+    }
+
+    @Test
+    public void givenABabyDinosaur_whenValidateWeightVariation_thenShouldThrowInvalidBabyWeightChangeException() {
+        Dinosaur aBabyDinosaur = givenABabyDinosaur();
+        final int aWeightVariation = 10;
+
+        assertThrows(InvalidBabyWeightChangeException.class, () ->
+                aBabyDinosaur.validateWeightVariation(aWeightVariation));
+    }
+
+    @Test
+    public void givenAdultDinosaur_whenValidateWeightVariationUnder100_thenShouldThrowInvalidWeightChangeException() {
+        Dinosaur adultDinosaur = givenAdultDinosaur();
+        final int invalidWeightVariation = -100;
+
+        assertThrows(InvalidWeightChangeException.class, () ->
+                adultDinosaur.validateWeightVariation(invalidWeightVariation));
+    }
+
+    @Test
+    public void givenAdultDinosaur_whenModifyWeight_thenTheWeightShouldBeChanged() {
+        Dinosaur adultDinosaur = givenAdultDinosaur();
+        final int weightToAdd = 10;
+        final int expectedWeight = DINOSAUR_WEIGHT + weightToAdd;
+
+        adultDinosaur.modifyWeight(weightToAdd);
+
+        assertEquals(expectedWeight, adultDinosaur.getWeight());
+    }
+
+    @Test
+    public void givenABabyDinosaur_WhenIncreaseWeight_thenTheWeightShouldShouldBeIncresed() {
+        Dinosaur aBabyDinosaur = givenABabyDinosaur();
+        int expectedWeight = 1 + 33;
+
+        aBabyDinosaur.increaseWeight();
+
+        assertEquals(expectedWeight, aBabyDinosaur.getWeight());
+    }
+
+    @Test
+    public void givenABabyDinosaur_WhenIncreaseWeightMoreThan100_thenTheDinosaurShouldBecomeAdult() {
+        Dinosaur aBabyDinosaur = givenABabyDinosaur();
+
+        whenExceedWeight(aBabyDinosaur);
+
+        assertEquals(DinosaurStage.ADULT, aBabyDinosaur.getDinosaurStage());
+    }
+
+    @Test
+    public void givenABabyDinosaur_WhenHisTwoParentsDie_thenShouldDie() {
+        Dinosaur aBabyDinosaur = givenABabyDinosaurWithDeathParents();
+
+        assertFalse(aBabyDinosaur.isAlive());
+    }
+
+    private Dinosaur givenABabyDinosaur() {
+        return new Dinosaur(Species.Ankylosaurus, "name", Gender.M, mock(FoodConsumptionStrategy.class),
+                mock(Dinosaur.class), mock(Dinosaur.class), DinosaurStage.BABY);
+    }
+
+    private Dinosaur givenABabyDinosaurWithDeathParents() {
+        Dinosaur father = mock(Dinosaur.class);
+        Dinosaur mother = mock(Dinosaur.class);
+
+        when(father.isAlive()).thenReturn(false);
+        when(mother.isAlive()).thenReturn(false);
+
+        return new Dinosaur(Species.Ankylosaurus, "name", Gender.M, mock(FoodConsumptionStrategy.class),
+                father, mother, DinosaurStage.BABY);
+    }
+
+    private Dinosaur givenAdultDinosaur() {
+        return  new Dinosaur(Species.Ankylosaurus, DINOSAUR_WEIGHT, "name", Gender.M,
+                mock(FoodConsumptionStrategy.class), DinosaurStage.ADULT);
+    }
+
+    private void whenExceedWeight(Dinosaur dinosaur) {
+        dinosaur.increaseWeight();
+        dinosaur.increaseWeight();
+        dinosaur.increaseWeight();
+        dinosaur.increaseWeight();
     }
 }

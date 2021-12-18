@@ -185,4 +185,17 @@ public class HerdTest {
 
         assertEquals(dinosaurs, allDinosaursInHerd);
     }
+
+    @Test
+    public void whenIncreasingBabiesWeight_thenTheBabyDinosaursShouldIncreaseTheirWeight() {
+        when(aDinosaur.getName()).thenReturn("name");
+        herd.addDinosaur(aDinosaur);
+        when(anotherDinosaur.getName()).thenReturn("mane");
+        herd.addDinosaur(anotherDinosaur);
+
+        herd.increasingBabiesWeight();
+
+        verify(aDinosaur).increaseWeight();
+        verify(anotherDinosaur).increaseWeight();
+    }
 }

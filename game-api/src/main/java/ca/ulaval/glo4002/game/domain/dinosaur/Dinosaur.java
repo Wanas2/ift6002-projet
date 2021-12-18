@@ -112,6 +112,10 @@ public class Dinosaur {
         return species;
     }
 
+    public DinosaurStage getDinosaurStage() {
+        return dinosaurStage;
+    }
+
     public int compareStrength(Dinosaur dinosaur) {
         return Integer.compare(this.calculateStrength(), dinosaur.calculateStrength());
     }
